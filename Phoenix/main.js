@@ -1,38 +1,84 @@
-// BLOTTER - Example 2
-const text = new Blotter.Text("projectPhoenix", {
-    family : "'Raleway', sans-serif",
-    size : 50,
-    fill : "#000",
-    paddingLeft : 0,
-    paddingRight : 0
+const displayTime = document.querySelector(".display-time")
+
+function showTime() {
+  let time = new Date();
+  displayTime.innerText = time.toLocaleTimeString("en-US", {
+    hour24:false
   });
-  
-  const material = new Blotter.ChannelSplitMaterial();
-  material.uniforms.uOffset.value = 0.05;
-  material.uniforms.uRotation.value = 50;
-  material.uniforms.uApplyBlur.value = 1;
-  material.uniforms.uAnimateNoise.value = 0.3;
-
-  
-  // Try uncommenting the following line to play with
-  // the "volatility" of the effect. Higher values here will
-  // produce more dramatic changes in the appearance of your
-  // text as it animates, but you will likely want to keep
-  // the value below 1.0.
-  //material.uniforms.uVolatility.value = 0.30;
-  
-  const blotter = new Blotter(material, {
-    texts : text
-  });
-  
-  const elem = document.getElementById("textBox");
-  const scope = blotter.forText(text);
-  
-  scope.appendTo(elem);
-
-document.onmousemove = moveIt;
-
-function moveIt(event) {
-    material.uniforms.uRotation.value = (event.clientX * .1);
-    material.uniforms.uOffset.value = (event.clientX * 0.0001);
+  setTimeout(showTime, 1000);
 }
+
+showTime();
+
+
+function date() {
+  let today = new Date();
+
+  let dayName = today.getDay(),
+dayNum = today.getDate(),
+month = today.getMonth(),
+year = today.getFullYear();
+
+const months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+const dayWeek = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
+
+const IDCollection = ["day", "daynum", "month", "year"];
+
+const val = [dayWeek[dayName], dayNum,months[month],year];
+for (let i = 0; i < IDCollection.length; i++) {
+  document.getElementById(IDCollection[i]).firstChild.nodeValue =val[i];
+}
+}
+
+date();
+
+gsap.from(".content-text", 0.8, {
+  y: 40,
+  opacity: 0,
+  ease: "power2.inOut",
+  delay: 1,
+});
+
+gsap.from(".loader", 2, {
+  width: 0,
+  ease: "power4.inOut",
+  delay: 2,
+});
+
+gsap.to(".pre-loader", 2, {
+  top: "-100%",
+  ease: "power4.inOut",
+  delay: 4,
+});
+
+gsap.from(".navbar", 0.9, {
+  y: 50,
+  opacity: 0,
+  ease: "power4.inOut",
+  delay: 4.5,
+  stagger: {
+    amount: 0.3,
+  }
+});
