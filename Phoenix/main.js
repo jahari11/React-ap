@@ -82,3 +82,39 @@ gsap.from(".navbar", 0.9, {
     amount: 0.3,
   }
 });
+
+
+const counter = document.querySelector(".number");
+
+TweenLite.set(counter, {
+  xPercent: -5,
+  yPercent: -5,
+});
+
+window.addEventListener("mousemove", mouseCounter);
+
+function mouseCounter(e) {
+  TweenLite.to(counter, 0.5,{
+    x:e.clientX,
+    y:e.clientY
+  });
+}
+
+function progress() {
+  const windowScrollTop = $(window).scrollTop();
+  const docHeight = $(document).height();
+  const windowHeight = $(window).height();
+  const progressBar = (windowScrollTop / (docHeight - windowHeight)) * 100;
+  const counterTime = document.querySelector(".counter-num")
+
+  const $bgColor = progressBar > 99 ? "#000000" : "#000000";
+  const $textColor = progressBar > 99 ? "#000000" : "#333";
+
+  $(counterTime).text(Math.round(progressBar) + "%").css({ color: $textColor});
+
+  $(".fill").height(progressBar + "%").css({ backgroundColor: $bgColor});
+}
+progress();
+
+
+$(document).on("scroll", progress);
