@@ -195,12 +195,23 @@ section {
 
 .about-box {
     margin: auto;
-    width: 50%;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .about-p {
     margin: 20px 0;
     padding: 18px 40px;
+    text-align: center;
+}
+
+.about-title {
+    font-size: 2rem;
+    padding: 3px 0;
+    border-bottom: 2px solid #AF0E0E;
     text-align: center;
 }
 
